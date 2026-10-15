@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人教版高中物理知识图谱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#f5f7fa;
+  --surface:#ffffff;
+  --border:#e3e8ef;
+  --border-strong:#cbd5e1;
+  --text-1:#1a2332;
+  --text-2:#475569;
+  --text-3:#94a3b8;
+  --shadow-sm:0 1px 3px rgba(15,23,42,.05);
+  --shadow-md:0 4px 16px rgba(15,23,42,.07);
+  --shadow-lg:0 16px 44px rgba(15,23,42,.10);
+  --sans:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Segoe UI',Roboto,sans-serif;
+  --mono:'SF Mono','JetBrains Mono',Consolas,monospace;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text-1);
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{max-width:1280px;margin:0 auto;padding:0 28px}
+
+/* ===== 导航 ===== */
+.top-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:1280px;margin:0 auto;padding:0 28px;
+  height:64px;display:flex;align-items:center;gap:30px;
+}
+.nav-brand{
+  font-size:.95rem;font-weight:800;color:var(--text-1);
+  display:flex;align-items:center;gap:10px;white-space:nowrap;
+}
+.nav-mark{
+  width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg,#1e3a8a,#7c3aed);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.85rem;font-weight:800;
+}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{
+  color:var(--text-2);text-decoration:none;font-size:.85rem;font-weight:500;
+  padding:7px 16px;border-radius:8px;transition:all .2s ease;white-space:nowrap;
+}
+.nav-links a:hover{color:#1e3a8a;background:rgba(30,58,138,.07)}
+
+/* ===== Hero ===== */
+.hero{padding:72px 0 48px;text-align:center}
+.hero-badge{
+  display:inline-block;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#7c3aed;font-weight:700;
+  border:1px solid rgba(124,58,237,.24);
+  background:rgba(124,58,237,.05);
+  padding:6px 18px;border-radius:100px;margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(1.9rem,4.4vw,3rem);font-weight:800;
+  line-height:1.28;letter-spacing:-.02em;color:var(--text-1);
+  margin-bottom:18px;
+}
+.hero h1 .accent{
+  background:linear-gradient(120deg,#1e3a8a,#7c3aed);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero p{
+  font-size:clamp(.88rem,1.4vw,1rem);color:var(--text-2);
+  max-width:720px;margin:0 auto;line-height:1.9;
+}
+.hero-rule{
+  width:64px;height:4px;border-radius:4px;margin:30px auto 0;
+  background:linear-gradient(90deg,#1e3a8a,#7c3aed);
+}
+.hero-stats{display:flex;justify-content:center;gap:56px;margin-top:42px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{
+  font-size:2rem;font-weight:800;font-family:var(--mono);
+  color:#1e3a8a;line-height:1.2;
+}
+.hero-stat-label{
+  font-size:.74rem;color:var(--text-3);
+  letter-spacing:.1em;margin-top:4px;font-weight:500;
+}
+
+/* ===== 章节标题 ===== */
+.section-header{margin-bottom:32px;padding-top:64px}
+.section-header .kicker{
+  font-size:.72rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:#7c3aed;margin-bottom:10px;
+}
+.section-header h2{
+  font-size:clamp(1.35rem,2.7vw,1.75rem);font-weight:800;
+  color:var(--text-1);letter-spacing:-.015em;margin-bottom:10px;line-height:1.35;
+}
+.section-header p{color:var(--text-2);font-size:.88rem;max-width:700px}
+
+/* ===== 太阳辐照图 ===== */
+.sunburst-section{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-sm);
+  padding:24px 16px 20px;
+}
+.sunburst-wrap{
+  width:100%;display:flex;justify-content:center;align-items:center;
+  min-height:600px;
+}
+.sunburst-legend{
+  display:flex;flex-wrap:wrap;gap:10px 24px;
+  justify-content:center;margin-top:14px;
+  padding-top:18px;border-top:1px solid var(--border);
+}
+.legend-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:.8rem;color:var(--text-2);font-weight:500;
+}
+.legend-swatch{
+  width:13px;height:13px;border-radius:4px;flex-shrink:0;
+  box-shadow:0 0 0 1px rgba(0,0,0,.06);
+}
+
+/* ===== 模块网格 ===== */
+.module-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+}
+.module-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  transition:box-shadow .3s ease,border-color .3s ease,transform .3s ease;
+}
+.module-card:hover{
+  box-shadow:var(--shadow-lg);
+  border-color:var(--border-strong);
+  transform:translateY(-3px);
+}
+.module-card-head{
+  display:flex;align-items:center;gap:14px;
+  padding:20px 24px 16px;
+  border-bottom:1px solid var(--border);
+}
+.module-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;flex-shrink:0;
+}
+.module-name{font-size:1.05rem;font-weight:800;color:var(--text-1);letter-spacing:-.015em}
+.module-count{font-size:.74rem;color:var(--text-3);font-family:var(--mono);margin-top:2px}
+.radial-wrap{
+  padding:6px 10px 14px;
+  display:flex;justify-content:center;align-items:center;
+  min-height:460px;
+}
+
+/* ===== 分册思维导图 ===== */
+.book-map-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  margin-bottom:26px;
+  transition:box-shadow .3s ease,border-color .3s ease;
+}
+.book-map-card:hover{
+  box-shadow:var(--shadow-md);
+  border-color:var(--border-strong);
+}
+.book-map-head{
+  display:flex;align-items:center;gap:16px;
+  padding:22px 30px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,#fbfcfe,#f7f9fc);
+}
+.book-map-num{
+  font-family:var(--mono);font-size:.72rem;font-weight:700;
+  color:#fff;background:#1e3a8a;
+  padding:5px 12px;border-radius:7px;letter-spacing:.06em;
+  flex-shrink:0;
+}
+.book-map-title{
+  font-size:1.12rem;font-weight:800;color:var(--text-1);
+  letter-spacing:-.015em;
+}
+.book-map-meta{
+  margin-left:auto;font-size:.76rem;color:var(--text-3);
+  font-family:var(--mono);white-space:nowrap;
+}
+.book-map-body{
+  overflow-x:auto;overflow-y:hidden;
+  padding:22px 18px 26px;
+}
+.book-map-body::-webkit-scrollbar{height:8px}
+.book-map-body::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}
+.book-map-body::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+.book-map-body::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+.book-map-body svg{display:block;margin:0 auto}
+
+/* ===== 加载与错误状态 ===== */
+.loading-state, .error-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:280px;color:var(--text-3);font-size:.85rem;gap:12px;
+}
+.spinner{
+  width:34px;height:34px;border-radius:50%;
+  border:3px solid var(--border);
+  border-top-color:#1e3a8a;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-state{color:#b91c1c}
+.error-icon{font-size:1.8rem}
+
+/* ===== 页脚 ===== */
+.footer{
+  text-align:center;padding:52px 0 60px;
+  color:var(--text-3);font-size:.78rem;
+  border-top:1px solid var(--border);margin-top:40px;
+  background:var(--surface);
+}
+
+/* ===== 淡入 ===== */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ===== Tooltip ===== */
+.gtip{
+  position:fixed;pointer-events:none;z-index:9999;
+  background:#0f172a;color:#fff;
+  padding:9px 15px;border-radius:9px;
+  font-size:.78rem;font-weight:500;
+  box-shadow:0 10px 28px rgba(0,0,0,.24);
+  opacity:0;transition:opacity .16s ease;
+  white-space:nowrap;font-family:var(--sans);
+}
+.gtip .gtip-sub{
+  display:block;color:#94a3b8;font-size:.68rem;margin-top:3px;font-weight:400;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width:1040px){
+  .module-grid{grid-template-columns:1fr}
+  .radial-wrap{min-height:420px}
+}
+@media (max-width:768px){
+  .container{padding:0 18px}
+  .nav-inner{padding:0 18px;gap:14px}
+  .nav-links a{font-size:.78rem;padding:6px 11px}
+  .hero{padding:50px 0 34px}
+  .hero-stats{gap:30px;margin-top:32px}
+  .hero-stat-num{font-size:1.55rem}
+  .book-map-head{padding:16px 18px;gap:11px}
+  .book-map-title{font-size:.98rem}
+  .book-map-meta{display:none}
+  .section-header{padding-top:48px}
+  .sunburst-wrap{min-height:420px}
+}
+@media (max-width:480px){
+  .nav-brand span.brand-text{display:none}
+  .hero-stats{gap:20px}
+  .hero-stat-num{font-size:1.3rem}
+  .hero-stat-label{font-size:.66rem}
+  .sunburst-wrap{min-height:340px}
+  .radial-wrap{min-height:360px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 导航 ===== -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <span class="nav-brand">
+      <span class="nav-mark">⚛</span>
+      <span class="brand-text">高中物理知识图谱</span>
+    </span>
+    <div class="nav-links">
+      <a href="#overview">知识全景</a>
+      <a href="#modules">模块导图</a>
+      <a href="#chapters">分册思维导图</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero container">
+  <div class="hero-badge">人教版 · 2019 · 六册全览</div>
+  <h1>高中物理<span class="accent">知识图谱</span></h1>
+  <p>以五彩太阳辐照图统览全局，以径向导向图拆解模块，以大型思维导图详述每一分册。系统梳理人教版高中物理六册教材的知识脉络与逻辑关联。</p>
+  <div class="hero-rule"></div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label">教材分册</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">27</div><div class="hero-stat-label">核心章节</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">知识模块</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">130+</div><div class="hero-stat-label">知识点</div></div>
+  </div>
+</header>
+
+<!-- ===== 一、太阳辐照全景图 ===== -->
+<section id="overview" class="container fade-in">
+  <div class="section-header">
+    <div class="kicker">OVERVIEW · 全景</div>
+    <h2>知识全景太阳辐照图</h2>
+    <p>内层为「高中物理」总根，第二层为五大知识模块，第三层为各章节。扇区沿半径方向排列，标注清晰，悬停可查看完整信息。</p>
+  </div>
+  <div class="sunburst-section">
+    <div class="sunburst-wrap" id="sunburstWrap">
+      <div class="loading-state"><div class="spinner"></div><span>正在加载全景图…</span></div>
+    </div>
+    <div class="sunburst-legend" id="sunburstLegend"></div>
+  </div>
+</section>
+
+<!-- ===== 二、模块导向图 ===== -->
+<section id="modules" class="container fade-in">
+  <div class="section-header">
+    <div class="kicker">MODULES · 模块</div>
+    <h2>模块径向导向图</h2>
+    <p>每个模块以径向树居中展开，中心为模块名称，四周均匀分布其下辖章节。</p>
+  </div>
+  <div class="module-grid" id="moduleGrid">
+    <div class="module-card"><div class="radial-wrap"><div class="loading-state"><div class="spinner"></div><span>加载中…</span></div></div></div>
+    <div class="module-card"><div class="radial-wrap"><div class="loading-state"><div class="spinner"></div><span>加载中…</span></div></div></div>
+  </div>
+</section>
+
+<!-- ===== 三、分册思维导图 ===== -->
+<section id="chapters" class="container fade-in">
+  <div class="section-header">
+    <div class="kicker">BOOKS · 分册</div>
+    <h2>分册知识点思维导图</h2>
+    <p>每一分册整合为一张大型思维导图，以分册为根，章节为干，知识点为叶，完整呈现知识脉络。</p>
+  </div>
+  <div id="bookMaps">
+    <div class="book-map-card"><div class="book-map-body"><div class="loading-state"><div class="spinner"></div><span>正在加载思维导图…</span></div></div></div>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer container">
+  <p>人教版高中物理知识图谱 · 依据《普通高中物理课程标准（2017年版2020年修订）》· 2019版教材编制</p>
+</footer>
+
+<div class="gtip" id="gtip"></div>
+
+<script>
+/* ==========================================================
+   D3.js 多 CDN 回退加载器
+   ========================================================== */
+function loadD3() {
+  if (typeof d3 !== 'undefined') return Promise.resolve();
+
+  const cdns = [
+    'd3.min.js',
+    'd3.v7.min.js'
+  ];
+
+  return new Promise((resolve, reject) => {
+    let idx = 0;
+    function tryNext() {
+      if (idx >= cdns.length) { reject(new Error('所有 CDN 均无法加载 D3.js')); return; }
+      const url = cdns[idx++];
+      const s = document.createElement('script');
+      s.src = url; s.async = false;
+      s.onload = () => { if (typeof d3 !== 'undefined') resolve(); else tryNext(); };
+      s.onerror = tryNext;
+      document.head.appendChild(s);
+    }
+    tryNext();
+  });
+}
+
+/* ==========================================================
+   一、工具函数
+   ========================================================== */
+const _cv = document.createElement('canvas');
+const _cx = _cv.getContext('2d');
+
+function measureText(text, size, weight) {
+  _cx.font = `${weight||400} ${size}px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif`;
+  return _cx.measureText(text || '').width;
+}
+
+function wrapText(text, maxChars) {
+  if (!text) return [''];
+  const lines = [];
+  let cur = '';
+  for (const ch of text) {
+    cur += ch;
+    if (cur.length >= maxChars) { lines.push(cur); cur = ''; }
+  }
+  if (cur) lines.push(cur);
+  return lines.length ? lines : [''];
+}
+
+function hexToRgba(hex, a) {
+  try {
+    const c = d3.color(hex);
+    if (!c) return `rgba(150,150,150,${a})`;
+    return `rgba(${c.r},${c.g},${c.b},${a})`;
+  } catch (e) { return `rgba(150,150,150,${a})`; }
+}
+
+function mixWhite(hex, t) {
+  try {
+    const c = d3.color(hex);
+    if (!c) return '#ffffff';
+    return d3.interpolateRgb(c, d3.color('#ffffff'))(t).formatHex();
+  } catch (e) { return '#ffffff'; }
+}
+
+/* ==========================================================
+   二、数据定义
+   ========================================================== */
+const MODULES = [
+  { id:'mechanics',  name:'力学',       icon:'⚙', color:'#1e3a8a' },
+  { id:'electromag', name:'电磁学',     icon:'⚡', color:'#6d28d9' },
+  { id:'wave',       name:'波动与光学', icon:'〰', color:'#0f766e' },
+  { id:'thermal',    name:'热学',       icon:'🌡', color:'#b45309' },
+  { id:'modern',     name:'近代物理',   icon:'🔬', color:'#be185d' }
+];
+
+const BOOKS = [
+  { id:'b1', label:'必修第一册', num:'B1' },
+  { id:'b2', label:'必修第二册', num:'B2' },
+  { id:'b3', label:'必修第三册', num:'B3' },
+  { id:'x1', label:'选择性必修第一册', num:'X1' },
+  { id:'x2', label:'选择性必修第二册', num:'X2' },
+  { id:'x3', label:'选择性必修第三册', num:'X3' }
+];
+
+const CHAPTERS = [
+  /* ---------- 必修第一册 ---------- */
+  { id:'b1-1', book:'b1', module:'mechanics', name:'运动的描述', short:'运动描述',
+    points:[
+      { t:'质点 参考系',   d:'忽略形状大小的理想化模型；参考系不同则运动描述可能不同' },
+      { t:'时间 位移',     d:'时刻与时间间隔；位移是矢量，路程是标量' },
+      { t:'速度',          d:'平均速度 v=x/t；瞬时速度体现极限思想' },
+      { t:'加速度',        d:'描述速度变化快慢，a=Δv/Δt，方向与Δv一致' },
+      { t:'实验：测速度',  d:'打点计时器的使用与纸带数据处理方法' }
+    ]
+  },
+  { id:'b1-2', book:'b1', module:'mechanics', name:'匀变速直线运动的研究', short:'匀变速运动',
+    points:[
+      { t:'速度与时间关系', d:'v = v₀ + at；v-t 图像斜率表示加速度' },
+      { t:'位移与时间关系', d:'x = v₀t + ½at²；v-t 图像面积表示位移' },
+      { t:'速度与位移关系', d:'v² − v₀² = 2ax（不含时间的便捷式）' },
+      { t:'自由落体运动',   d:'初速度为零、加速度为 g 的匀加速直线运动' },
+      { t:'实验探究',       d:'探究小车速度随时间变化的规律' }
+    ]
+  },
+  { id:'b1-3', book:'b1', module:'mechanics', name:'相互作用——力', short:'相互作用',
+    points:[
+      { t:'重力与弹力',     d:'重力 G=mg；胡克定律 F=kx，方向沿形变恢复方向' },
+      { t:'摩擦力',         d:'静摩擦力由平衡条件确定；滑动摩擦力 f=μF_N' },
+      { t:'力的合成与分解', d:'平行四边形定则；矢量运算法则' },
+      { t:'共点力的平衡',   d:'合力为零；常用正交分解法处理平衡问题' },
+      { t:'牛顿第三定律',   d:'作用力与反作用力等大、反向、共线、异体' }
+    ]
+  },
+  { id:'b1-4', book:'b1', module:'mechanics', name:'运动和力的关系', short:'牛顿定律',
+    points:[
+      { t:'牛顿第一定律',   d:'惯性定律；力是改变物体运动状态的原因' },
+      { t:'实验：a与F、m关系', d:'控制变量法；a-F 图像与 a-1/m 图像' },
+      { t:'牛顿第二定律',   d:'F = ma；矢量式、瞬时对应、同体性' },
+      { t:'力学单位制',     d:'基本单位与导出单位；国际单位制' },
+      { t:'超重与失重',     d:'视重与实重；完全失重时视重为零' }
+    ]
+  },
+
+  /* ---------- 必修第二册 ---------- */
+  { id:'b2-1', book:'b2', module:'mechanics', name:'抛体运动', short:'抛体运动',
+    points:[
+      { t:'曲线运动',       d:'速度方向沿轨迹切线；合力指向轨迹凹侧' },
+      { t:'运动的合成与分解', d:'等时性与独立性；遵循平行四边形定则' },
+      { t:'平抛运动',       d:'水平匀速 + 竖直自由落体，轨迹为抛物线' },
+      { t:'斜抛运动',       d:'斜向上抛的分解；射程与射高分析' }
+    ]
+  },
+  { id:'b2-2', book:'b2', module:'mechanics', name:'圆周运动', short:'圆周运动',
+    points:[
+      { t:'圆周运动描述',   d:'线速度、角速度、周期、转速；v = ωr' },
+      { t:'向心加速度',     d:'a = v²/r = ω²r，方向始终指向圆心' },
+      { t:'向心力',         d:'F = mv²/r，由合外力提供，是效果力' },
+      { t:'生活中的圆周运动', d:'汽车转弯、火车轨道、竖直面内圆周运动' },
+      { t:'离心现象',       d:'合外力不足提供向心力时物体做离心运动' }
+    ]
+  },
+  { id:'b2-3', book:'b2', module:'mechanics', name:'万有引力与宇宙航行', short:'万有引力',
+    points:[
+      { t:'行星的运动',     d:'开普勒三大定律：椭圆轨道、面积定律、周期定律' },
+      { t:'万有引力定律',   d:'F = G·m₁m₂/r²；引力常量 G 的测定' },
+      { t:'万有引力理论的成就', d:'称量地球质量；预言并发现海王星' },
+      { t:'宇宙航行',       d:'三个宇宙速度；卫星运行规律与同步卫星' },
+      { t:'相对论时空观',   d:'牛顿力学的局限性；时间延缓与长度收缩' }
+    ]
+  },
+  { id:'b2-4', book:'b2', module:'mechanics', name:'机械能守恒定律', short:'机械能',
+    points:[
+      { t:'功与功率',       d:'W = Fx·cosθ；P = W/t = Fv' },
+      { t:'重力势能',       d:'E_p = mgh；重力做功与路径无关' },
+      { t:'动能定理',       d:'W_合 = ΔE_k = ½mv² − ½mv₀²' },
+      { t:'机械能守恒定律', d:'只有重力或弹力做功时 E₁ = E₂' },
+      { t:'实验：验证机械能守恒', d:'自由落体法；比较减少的重力势能与增加的动能' }
+    ]
+  },
+
+  /* ---------- 必修第三册 ---------- */
+  { id:'b3-1', book:'b3', module:'electromag', name:'静电场及其应用', short:'静电场',
+    points:[
+      { t:'电荷',           d:'电荷守恒定律；元电荷 e = 1.6×10⁻¹⁹ C' },
+      { t:'库仑定律',       d:'F = kq₁q₂/r²；适用于真空中的点电荷' },
+      { t:'电场强度',       d:'E = F/q；电场线的特点与常见电场分布' },
+      { t:'静电的防止与利用', d:'静电平衡、尖端放电、静电屏蔽' }
+    ]
+  },
+  { id:'b3-2', book:'b3', module:'electromag', name:'静电场中的能量', short:'电场能量',
+    points:[
+      { t:'电势能与电势',   d:'E_p = qφ；电势是标量，有正负之分' },
+      { t:'电势差',         d:'U_AB = W_AB/q = φ_A − φ_B' },
+      { t:'等势面',         d:'与电场线垂直；沿等势面移动电荷不做功' },
+      { t:'电容器的电容',   d:'C = Q/U；平行板电容器 C = εS/(4πkd)' },
+      { t:'带电粒子在电场中的运动', d:'加速与偏转；类平抛模型' }
+    ]
+  },
+  { id:'b3-3', book:'b3', module:'electromag', name:'电路及其应用', short:'电路',
+    points:[
+      { t:'电源与电流',     d:'恒定电流；I = q/t；电流的微观表达式' },
+      { t:'导体电阻',       d:'电阻定律 R = ρL/S；电阻率与温度有关' },
+      { t:'串联与并联',     d:'电流、电压、电阻的规律；等效电阻计算' },
+      { t:'实验：测电源电动势和内阻', d:'伏安法；U-I 图像的截距与斜率' },
+      { t:'闭合电路欧姆定律', d:'E = U_外 + U_内；路端电压随电流变化' }
+    ]
+  },
+  { id:'b3-4', book:'b3', module:'electromag', name:'电能 能量守恒定律', short:'电能守恒',
+    points:[
+      { t:'电路中的能量转化', d:'电功 W = UIt；焦耳定律 Q = I²Rt' },
+      { t:'电源的功率与效率', d:'P = EI；效率 η = U/E' },
+      { t:'能源与可持续发展', d:'能量守恒定律的普遍意义；清洁能源' }
+    ]
+  },
+  { id:'b3-5', book:'b3', module:'electromag', name:'电磁感应与电磁波初步', short:'电磁初步',
+    points:[
+      { t:'磁场 磁感线',     d:'磁场的基本性质；磁感线的特点与分布' },
+      { t:'磁感应强度',      d:'B = F/(IL)；匀强磁场与磁通量' },
+      { t:'电磁感应现象',    d:'产生感应电流的条件；法拉第的发现' },
+      { t:'电磁波的发现',    d:'麦克斯韦电磁场理论；赫兹实验验证' },
+      { t:'能量量子化',      d:'黑体辐射与普朗克能量子假说' }
+    ]
+  },
+
+  /* ---------- 选择性必修第一册 ---------- */
+  { id:'x1-1', book:'x1', module:'mechanics', name:'动量守恒定律', short:'动量守恒',
+    points:[
+      { t:'动量',           d:'p = mv；矢量，方向与速度方向相同' },
+      { t:'动量定理',       d:'I = Δp；冲量等于动量的变化量' },
+      { t:'动量守恒定律',   d:'系统合外力为零时，总动量保持不变' },
+      { t:'弹性碰撞与非弹性碰撞', d:'动量守恒；能量损失分析' },
+      { t:'反冲现象 火箭',  d:'动量守恒在反冲运动中的应用' }
+    ]
+  },
+  { id:'x1-2', book:'x1', module:'wave', name:'机械振动', short:'机械振动',
+    points:[
+      { t:'简谐运动',       d:'回复力 F = −kx；位移-时间图像为正弦曲线' },
+      { t:'简谐运动的描述', d:'振幅、周期、频率、相位；ω = 2π/T' },
+      { t:'简谐运动的能量', d:'动能与势能相互转化，机械能守恒' },
+      { t:'单摆',           d:'周期 T = 2π√(L/g)；小角度近似' },
+      { t:'受迫振动 共振',  d:'驱动力频率等于固有频率时振幅最大' }
+    ]
+  },
+  { id:'x1-3', book:'x1', module:'wave', name:'机械波', short:'机械波',
+    points:[
+      { t:'波的形成',       d:'机械振动在介质中的传播；横波与纵波' },
+      { t:'波的描述',       d:'波长、频率、波速的关系 v = λf' },
+      { t:'波的反射与折射', d:'波传播方向的变化；波线概念' },
+      { t:'波的干涉',       d:'两列相干波叠加形成稳定的干涉图样' },
+      { t:'波的衍射',       d:'波绕过障碍物继续传播的现象' },
+      { t:'多普勒效应',     d:'波源与观察者相对运动时接收频率变化' }
+    ]
+  },
+  { id:'x1-4', book:'x1', module:'wave', name:'光', short:'光',
+    points:[
+      { t:'光的折射',       d:'折射定律 n = sinθ₁/sinθ₂；折射率与光速关系' },
+      { t:'全反射',         d:'光密→光疏；入射角大于临界角时发生' },
+      { t:'光的干涉',       d:'双缝干涉；条纹间距 Δx = Lλ/d' },
+      { t:'光的衍射',       d:'单缝衍射与圆孔衍射；体现光的波动性' },
+      { t:'光的偏振',       d:'横波特有现象；自然光与偏振光' },
+      { t:'激光',           d:'相干性好、平行度好、亮度高及其应用' }
+    ]
+  },
+
+  /* ---------- 选择性必修第二册 ---------- */
+  { id:'x2-1', book:'x2', module:'electromag', name:'安培力与洛伦兹力', short:'磁场力',
+    points:[
+      { t:'安培力',         d:'F = BIL·sinθ；方向由左手定则判断' },
+      { t:'洛伦兹力',       d:'F = qvB；方向由左手定则判断' },
+      { t:'带电粒子在磁场中的运动', d:'圆周运动半径 r = mv/(qB)，周期 T = 2πm/(qB)' },
+      { t:'质谱仪与回旋加速器', d:'带电粒子在电磁场中运动的应用' }
+    ]
+  },
+  { id:'x2-2', book:'x2', module:'electromag', name:'电磁感应', short:'电磁感应',
+    points:[
+      { t:'楞次定律',       d:'感应电流的磁场阻碍引起感应电流的磁通量变化' },
+      { t:'法拉第电磁感应定律', d:'E = nΔΦ/Δt；切割磁感线 E = BLv' },
+      { t:'涡流 电磁阻尼与驱动', d:'涡流的产生、应用与防止' },
+      { t:'互感和自感',     d:'自感系数与自感电动势；自感现象分析' }
+    ]
+  },
+  { id:'x2-3', book:'x2', module:'electromag', name:'交变电流', short:'交变电流',
+    points:[
+      { t:'交变电流',       d:'大小和方向随时间做周期性变化' },
+      { t:'描述交变电流',   d:'峰值、有效值、周期、频率；有效值计算' },
+      { t:'变压器',         d:'U₁/U₂ = n₁/n₂；理想变压器功率不变' },
+      { t:'电能的输送',     d:'高压输电减少线路损耗；P_损 = I²R' }
+    ]
+  },
+  { id:'x2-4', book:'x2', module:'electromag', name:'电磁振荡与电磁波', short:'电磁振荡',
+    points:[
+      { t:'电磁振荡',       d:'LC 振荡电路中电场能与磁场能交替转化' },
+      { t:'电磁波',         d:'变化的电场产生磁场，变化的磁场产生电场' },
+      { t:'无线电波的发射与接收', d:'调制与解调；天线与调谐电路' },
+      { t:'电磁波谱',       d:'从无线电波到 γ 射线的完整谱系' }
+    ]
+  },
+  { id:'x2-5', book:'x2', module:'electromag', name:'传感器', short:'传感器',
+    points:[
+      { t:'认识传感器',     d:'将非电学量转换为电学量的器件' },
+      { t:'常见传感器',     d:'温度传感器、光传感器、力传感器、磁传感器' },
+      { t:'传感器的应用',   d:'自动控制与信息采集系统' }
+    ]
+  },
+
+  /* ---------- 选择性必修第三册 ---------- */
+  { id:'x3-1', book:'x3', module:'thermal', name:'分子动理论', short:'分子动理',
+    points:[
+      { t:'分子动理论',     d:'物质由大量分子组成；分子永不停息地做无规则运动' },
+      { t:'实验：油膜法测分子大小', d:'d = V/S，估测分子直径数量级 10⁻¹⁰ m' },
+      { t:'分子运动速率分布', d:'统计规律；温度是分子平均动能的标志' },
+      { t:'分子动能与分子势能', d:'内能是分子动能与分子势能之和' }
+    ]
+  },
+  { id:'x3-2', book:'x3', module:'thermal', name:'气体、固体和液体', short:'气体液体',
+    points:[
+      { t:'温度和温标',     d:'热平衡；热力学温度与摄氏温度的关系' },
+      { t:'气体的等温变化', d:'玻意耳定律 pV = C' },
+      { t:'气体的等压变化', d:'盖-吕萨克定律 V/T = C' },
+      { t:'气体的等容变化', d:'查理定律 p/T = C；理想气体状态方程' },
+      { t:'固体',           d:'晶体与非晶体；各向异性与各向同性' },
+      { t:'液体',           d:'表面张力、浸润与不浸润、毛细现象' }
+    ]
+  },
+  { id:'x3-3', book:'x3', module:'thermal', name:'热力学定律', short:'热力学',
+    points:[
+      { t:'功、热与内能',   d:'做功和热传递是改变内能的两种方式' },
+      { t:'热力学第一定律', d:'ΔU = Q + W；能量守恒在热现象中的体现' },
+      { t:'能量守恒定律',   d:'自然界最普遍的规律之一' },
+      { t:'热力学第二定律', d:'热现象的方向性；熵增原理' },
+      { t:'能源与可持续发展', d:'清洁能源与节能减排' }
+    ]
+  },
+  { id:'x3-4', book:'x3', module:'modern', name:'原子结构和波粒二象性', short:'原子结构',
+    points:[
+      { t:'黑体辐射',       d:'能量量子化；普朗克能量子假说 ε = hν' },
+      { t:'光电效应',       d:'爱因斯坦光电效应方程 E_k = hν − W₀' },
+      { t:'波粒二象性',     d:'光与实物粒子都具有波粒二象性' },
+      { t:'原子的核式结构', d:'卢瑟福 α 粒子散射实验；核式结构模型' },
+      { t:'氢原子光谱与玻尔理论', d:'能级跃迁；光谱线的产生' }
+    ]
+  },
+  { id:'x3-5', book:'x3', module:'modern', name:'原子核', short:'原子核',
+    points:[
+      { t:'原子核的组成',   d:'质子与中子；核素与同位素' },
+      { t:'放射性元素的衰变', d:'α 衰变、β 衰变、γ 辐射；半衰期' },
+      { t:'核力与结合能',   d:'质量亏损与质能方程 E = mc²' },
+      { t:'核裂变与核聚变', d:'释放巨大能量；链式反应与热核反应' },
+      { t:'“基本”粒子',    d:'粒子物理的标准模型' }
+    ]
+  }
+];
+
+/* ==========================================================
+   三、章节彩虹色分配
+   ========================================================== */
+const CHAPTER_HUES = {};
+CHAPTERS.forEach((c, i) => {
+  CHAPTER_HUES[c.id] = (i * 137.508 + 12) % 360;
+});
+
+function chapterColor(id) {
+  const hue = CHAPTER_HUES[id];
+  if (hue === undefined) return '#64748b';
+  try {
+    return d3.hsl(hue, 0.62, 0.55).formatHex();
+  } catch (e) { return '#64748b'; }
+}
+
+/* ==========================================================
+   四、Tooltip
+   ========================================================== */
+const gtip = document.getElementById('gtip');
+let _tipVisible = false;
+
+function showTip(html, x, y) {
+  if (!gtip) return;
+  gtip.innerHTML = html;
+  gtip.style.opacity = '1';
+  gtip.style.left = (x + 14) + 'px';
+  gtip.style.top = (y - 14) + 'px';
+  _tipVisible = true;
+}
+function moveTip(x, y) {
+  if (!gtip || !_tipVisible) return;
+  gtip.style.left = (x + 14) + 'px';
+  gtip.style.top = (y - 14) + 'px';
+}
+function hideTip() {
+  if (!gtip) return;
+  gtip.style.opacity = '0';
+  _tipVisible = false;
+}
+
+/* ==========================================================
+   五、太阳辐照全景图（修复标签位置与旋转）
+   ========================================================== */
+function renderSunburst() {
+  const wrap = document.getElementById('sunburstWrap');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+
+  const SIZE = 900;
+  const R = 420;
+  const CX = SIZE / 2;
+  const CY = SIZE / 2;
+
+  const svg = d3.select(wrap).append('svg')
+    .attr('viewBox', `0 0 ${SIZE} ${SIZE}`)
+    .attr('width', '100%')
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('max-width', SIZE + 'px')
+    .style('display', 'block');
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${CX},${CY})`);
+
+  /* ---- 构建层级数据 ---- */
+  const treeData = {
+    name: '高中物理',
+    children: MODULES.map(m => ({
+      name: m.name,
+      moduleId: m.id,
+      color: m.color,
+      children: CHAPTERS
+        .filter(c => c.module === m.id)
+        .map(c => ({
+          id: c.id,
+          name: c.short,
+          fullName: c.name,
+          moduleId: m.id
+        }))
+    }))
+  };
+
+  const root = d3.hierarchy(treeData)
+    .sum(d => d.children ? 0 : 1);
+
+  d3.partition().size([2 * Math.PI, 1])(root);
+
+  const rScale = d3.scaleLinear().domain([0, 1]).range([0, R]);
+
+  const arc = d3.arc()
+    .startAngle(d => d.x0)
+    .endAngle(d => d.x1)
+    .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.0035))
+    .padRadius(R / 5)
+    .innerRadius(d => rScale(d.y0))
+    .outerRadius(d => rScale(d.y1));
+
+  function nodeColor(d) {
+    if (d.depth === 0) return '#0f172a';
+    if (d.depth === 1) {
+      const m = MODULES.find(x => x.id === d.data.moduleId);
+      return m ? m.color : '#1e3a8a';
+    }
+    return chapterColor(d.data.id);
+  }
+
+  /* ---- 绘制扇区 ---- */
+  const paths = g.selectAll('path.arc')
+    .data(root.descendants().filter(d => d.depth > 0))
+    .join('path')
+    .attr('class', 'arc')
+    .attr('d', arc)
+    .attr('fill', nodeColor)
+    .attr('stroke', '#ffffff')
+    .attr('stroke-width', 1.6)
+    .style('cursor', 'pointer')
+    .style('transition', 'opacity .25s ease, filter .25s ease');
+
+  /* ---- 中心圆 ---- */
+  g.append('circle')
+    .attr('r', rScale(1 / 3))
+    .attr('fill', '#0f172a');
+
+  g.append('circle')
+    .attr('r', rScale(1 / 3) + 3)
+    .attr('fill', 'none')
+    .attr('stroke', 'rgba(255,255,255,0.12)')
+    .attr('stroke-width', 1);
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '-0.08em')
+    .attr('fill', '#ffffff')
+    .attr('font-size', 30)
+    .attr('font-weight', 800)
+    .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+    .attr('letter-spacing', '0.08em')
+    .text('高中物理');
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '1.65em')
+    .attr('fill', 'rgba(255,255,255,0.5)')
+    .attr('font-size', 12)
+    .attr('font-family', "'SF Mono',Consolas,monospace")
+    .attr('letter-spacing', '0.22em')
+    .text('PHYSICS');
+
+  /* =========================================================
+     文字标签（径向排列，位置与旋转修复）
+     ---------------------------------------------------------
+     核心修复：
+     1) rotateDeg = angleDeg - 90
+        —— d3.partition 的角度 0 位于顶部，rotate(-90) 使文字
+           基线指向半径外侧，从而沿半径方向排列
+     2) 位置由 rotate() + translate(rMid, 0) 决定
+        —— 先旋转坐标系，再沿新的 x 轴（即半径方向）平移
+     3) 当 angleDeg ∈ (90°, 270°) 时附加 180° 翻转
+        —— 使左侧半圆的文字保持正向可读
+     ========================================================= */
+  const labelG = g.append('g');
+
+  root.descendants().filter(d => d.depth > 0).forEach(d => {
+    const midAngle = (d.x0 + d.x1) / 2;          // 弧度，[0, 2π)
+    const rMid = rScale((d.y0 + d.y1) / 2);      // 中间半径（像素）
+    const arcLen = (d.x1 - d.x0) * rMid;         // 弧长（像素）
+    const isModule = d.depth === 1;
+    const name = d.data.name;
+
+    /* ---- 关键修复：角度换算 ---- */
+    const angleDeg = midAngle * 180 / Math.PI;   // [0, 360)
+    const rotateDeg = angleDeg - 90;             // 径向排列的核心偏移
+    const flip = (angleDeg > 90 && angleDeg < 270) ? 180 : 0;
+
+    /* ---- 字体大小自适应 ---- */
+    let fontSize;
+    if (isModule) {
+      // 模块层：环厚 140px，字号 12~15
+      fontSize = Math.min(15, Math.max(11, arcLen / (name.length * 1.05)));
+    } else {
+      // 章节层：字号 8~11，过窄则隐藏
+      fontSize = Math.min(11, arcLen / (name.length * 1.05));
+      if (fontSize < 7.5) return;
+    }
+
+    /* ---- 极窄扇区直接跳过 ---- */
+    const minArc = isModule ? 34 : fontSize * name.length * 0.95 + 8;
+    if (arcLen < minArc && !isModule) return;
+
+    labelG.append('text')
+      .attr('transform',
+        `rotate(${rotateDeg}) translate(${rMid},0) rotate(${flip})`)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'central')
+      .attr('alignment-baseline', 'middle')
+      .attr('fill', '#ffffff')
+      .attr('font-size', fontSize)
+      .attr('font-weight', isModule ? 800 : 600)
+      .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+      .attr('letter-spacing', isModule ? '0.06em' : '0.02em')
+      .style('pointer-events', 'none')
+      .style('paint-order', 'stroke')
+      .style('stroke', 'rgba(0,0,0,0.25)')
+      .style('stroke-width', '2.5px')
+      .style('stroke-linecap', 'round')
+      .style('stroke-linejoin', 'round')
+      .text(name);
+  });
+
+  /* ---- 交互：悬停高亮 ---- */
+  paths
+    .on('mouseover', function (event, d) {
+      const anc = new Set(d.ancestors());
+      paths.attr('opacity', p => {
+        if (anc.has(p)) return 1;
+        if (p.ancestors().some(a => anc.has(a))) return 1;
+        return 0.24;
+      });
+      d3.select(this).attr('filter', 'brightness(1.1)');
+
+      const mod = MODULES.find(m => m.id === d.data.moduleId);
+      if (d.depth === 1) {
+        showTip(`<strong>${d.data.name}</strong><span class="gtip-sub">${d.children.length} 个章节 · 知识模块</span>`, event.clientX, event.clientY);
+      } else {
+        showTip(`<strong>${d.data.fullName}</strong><span class="gtip-sub">${mod ? mod.name : ''}</span>`, event.clientX, event.clientY);
+      }
+    })
+    .on('mousemove', e => moveTip(e.clientX, e.clientY))
+    .on('mouseout', function () {
+      paths.attr('opacity', 1).attr('filter', null);
+      hideTip();
+    });
+
+  /* ---- 图例 ---- */
+  const legendEl = document.getElementById('sunburstLegend');
+  if (legendEl) {
+    legendEl.innerHTML = MODULES.map(m => {
+      const cnt = CHAPTERS.filter(c => c.module === m.id).length;
+      return `<div class="legend-item">
+        <span class="legend-swatch" style="background:${m.color}"></span>
+        <span>${m.name}</span>
+        <span style="color:#94a3b8;font-family:'SF Mono',monospace;font-size:.72rem">${cnt}章</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ==========================================================
+   六、模块径向导向图
+   ========================================================== */
+function renderRadialTree(container, mod) {
+  if (!container) return;
+  container.innerHTML = '';
+
+  const W = 480, H = 480;
+  const CX = W / 2, CY = H / 2;
+  const R_CENTER = 56;
+  const R_NODE = 178;
+
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('width', '100%')
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('max-width', W + 'px')
+    .style('display', 'block')
+    .style('margin', '0 auto');
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${CX},${CY})`);
+
+  const chapters = CHAPTERS.filter(c => c.module === mod.id);
+  const n = chapters.length;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2;
+
+  /* 连线 */
+  chapters.forEach((ch, i) => {
+    const angle = startAngle + i * angleStep;
+    const x1 = Math.cos(angle) * R_CENTER;
+    const y1 = Math.sin(angle) * R_CENTER;
+    const x2 = Math.cos(angle) * (R_NODE - 14);
+    const y2 = Math.sin(angle) * (R_NODE - 14);
+
+    g.append('line')
+      .attr('x1', x1).attr('y1', y1)
+      .attr('x2', x2).attr('y2', y2)
+      .attr('stroke', hexToRgba(mod.color, 0.28))
+      .attr('stroke-width', 1.5);
+  });
+
+  /* 节点圆点 */
+  chapters.forEach((ch, i) => {
+    const angle = startAngle + i * angleStep;
+    const x = Math.cos(angle) * R_NODE;
+    const y = Math.sin(angle) * R_NODE;
+
+    g.append('circle')
+      .attr('cx', x).attr('cy', y)
+      .attr('r', 6)
+      .attr('fill', '#ffffff')
+      .attr('stroke', mod.color)
+      .attr('stroke-width', 2.5);
+  });
+
+  /* 文字标签 */
+  chapters.forEach((ch, i) => {
+    const angle = startAngle + i * angleStep;
+    const x = Math.cos(angle) * R_NODE;
+    const y = Math.sin(angle) * R_NODE;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    let anchor = 'middle';
+    let dx = 0, dy = 0;
+
+    if (cos > 0.18) {
+      anchor = 'start'; dx = 13;
+    } else if (cos < -0.18) {
+      anchor = 'end'; dx = -13;
+    } else {
+      anchor = 'middle';
+      dy = sin > 0 ? 24 : -15;
+    }
+
+    g.append('text')
+      .attr('x', x + dx)
+      .attr('y', y + dy)
+      .attr('text-anchor', anchor)
+      .attr('dy', (Math.abs(cos) > 0.18) ? '0.35em' : '0')
+      .attr('fill', '#1a2332')
+      .attr('font-size', 12.5)
+      .attr('font-weight', 700)
+      .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+      .style('cursor', 'default')
+      .text(ch.short)
+      .on('mouseover', function (event) {
+        showTip(`<strong>${ch.name}</strong><span class="gtip-sub">${mod.name}</span>`, event.clientX, event.clientY);
+      })
+      .on('mousemove', e => moveTip(e.clientX, e.clientY))
+      .on('mouseout', hideTip);
+  });
+
+  /* 中心圆 */
+  g.append('circle')
+    .attr('r', R_CENTER)
+    .attr('fill', mod.color);
+
+  g.append('circle')
+    .attr('r', R_CENTER + 4)
+    .attr('fill', 'none')
+    .attr('stroke', mixWhite(mod.color, 0.82))
+    .attr('stroke-width', 5);
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '-0.05em')
+    .attr('fill', '#ffffff')
+    .attr('font-size', 18)
+    .attr('font-weight', 800)
+    .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+    .attr('letter-spacing', '0.06em')
+    .text(mod.name);
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '1.55em')
+    .attr('fill', 'rgba(255,255,255,0.7)')
+    .attr('font-size', 10)
+    .attr('font-family', "'SF Mono',Consolas,monospace")
+    .attr('letter-spacing', '0.1em')
+    .text(`${chapters.length} 章`);
+}
+
+function renderModuleMaps() {
+  const grid = document.getElementById('moduleGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  MODULES.forEach(mod => {
+    const chapters = CHAPTERS.filter(c => c.module === mod.id);
+
+    const card = document.createElement('div');
+    card.className = 'module-card';
+    card.innerHTML = `
+      <div class="module-card-head">
+        <div class="module-icon"
+             style="background:${hexToRgba(mod.color, 0.10)};color:${mod.color}">
+          ${mod.icon}
+        </div>
+        <div>
+          <div class="module-name">${mod.name}</div>
+          <div class="module-count">${chapters.length} 个章节</div>
+        </div>
+      </div>
+      <div class="radial-wrap"></div>
+    `;
+    grid.appendChild(card);
+
+    renderRadialTree(card.querySelector('.radial-wrap'), mod);
+  });
+}
+
+/* ==========================================================
+   七、分册大型思维导图
+   ========================================================== */
+function renderBookMindMap(container, book) {
+  if (!container) return;
+  container.innerHTML = '';
+
+  const chapters = CHAPTERS.filter(c => c.book === book.id);
+
+  const data = {
+    name: book.label,
+    isRoot: true,
+    children: chapters.map(ch => ({
+      name: ch.name,
+      moduleId: ch.module,
+      chapterId: ch.id,
+      children: ch.points.map(p => ({
+        name: p.t,
+        desc: p.d,
+        moduleId: ch.module
+      }))
+    }))
+  };
+
+  const root = d3.hierarchy(data);
+
+  const H_GAP = 58;
+  const V_GAP = 8;
+  const PAD_X = 16;
+  const PAD_Y = 9;
+  const LINE_H_TITLE = 17;
+  const LINE_H_DESC = 14;
+  const MARGIN = 14;
+
+  /* 1. 测量节点 */
+  root.each(node => {
+    const depth = node.depth;
+    let titleSize, titleMax, descSize, descMax, titleColor;
+
+    if (depth === 0) {
+      titleSize = 16; titleMax = 10;
+      descSize = 0;   descMax = 0;
+      titleColor = '#ffffff';
+    } else if (depth === 1) {
+      titleSize = 13; titleMax = 12;
+      descSize = 0;   descMax = 0;
+      titleColor = '#1a2332';
+    } else {
+      titleSize = 11.5; titleMax = 12;
+      descSize = 10;   descMax = 30;
+      titleColor = '#1a2332';
+    }
+
+    const titleLines = wrapText(node.data.name, titleMax);
+    const descLines = (descSize > 0 && node.data.desc)
+      ? wrapText(node.data.desc, descMax)
+      : [];
+
+    const lines = [];
+    titleLines.forEach(t => lines.push({
+      text: t, size: titleSize, weight: 800, color: titleColor,
+      lineH: LINE_H_TITLE, type: 'title'
+    }));
+    descLines.forEach(t => lines.push({
+      text: t, size: descSize, weight: 400, color: '#64748b',
+      lineH: LINE_H_DESC, type: 'desc'
+    }));
+
+    let maxW = 0;
+    lines.forEach(l => {
+      const w = measureText(l.text, l.size, l.weight);
+      if (w > maxW) maxW = w;
+    });
+
+    node._lines = lines;
+    node._size = {
+      w: Math.max(maxW + PAD_X * 2, depth === 0 ? 140 : 92),
+      h: lines.reduce((s, l) => s + l.lineH, 0) + PAD_Y * 2
+    };
+  });
+
+  /* 2. 层宽 */
+  const depthW = [];
+  root.each(n => {
+    depthW[n.depth] = Math.max(depthW[n.depth] || 0, n._size.w);
+  });
+  const xPos = [0];
+  for (let d = 1; d < depthW.length; d++) {
+    xPos[d] = xPos[d - 1] + depthW[d - 1] + H_GAP;
+  }
+
+  /* 3. 子树高 */
+  (function calcSub(node) {
+    if (!node.children || !node.children.length) {
+      node._subH = node._size.h;
+    } else {
+      node.children.forEach(calcSub);
+      let total = 0;
+      node.children.forEach((c, i) => {
+        total += c._subH + (i > 0 ? V_GAP : 0);
+      });
+      node._subH = Math.max(node._size.h, total);
+    }
+  })(root);
+
+  /* 4. 摆放 */
+  (function place(node, top) {
+    node._x = xPos[node.depth];
+    if (!node.children || !node.children.length) {
+      node._y = top + node._subH / 2;
+    } else {
+      let childrenH = 0;
+      node.children.forEach((c, i) => {
+        childrenH += c._subH + (i > 0 ? V_GAP : 0);
+      });
+      let cur = top + (node._subH - childrenH) / 2;
+      node.children.forEach(c => {
+        place(c, cur);
+        cur += c._subH + V_GAP;
+      });
+      const first = node.children[0];
+      const last = node.children[node.children.length - 1];
+      node._y = (first._y + last._y) / 2;
+    }
+  })(root, 0);
+
+  /* 5. 画布 */
+  const maxDepth = root.height;
+  const contentW = xPos[maxDepth] + depthW[maxDepth];
+  const contentH = root._subH;
+  const svgW = contentW + MARGIN * 2;
+  const svgH = contentH + MARGIN * 2;
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', svgW)
+    .attr('height', svgH)
+    .attr('viewBox', `0 0 ${svgW} ${svgH}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('max-width', '100%')
+    .style('height', 'auto');
+
+  function getNodeColor(node) {
+    if (node.depth === 0) return '#1e3a8a';
+    const m = MODULES.find(x => x.id === node.data.moduleId);
+    return m ? m.color : '#64748b';
+  }
+
+  /* 6. 连线 */
+  const linkG = svg.append('g');
+  root.links().forEach(link => {
+    const s = link.source, t = link.target;
+    const col = getNodeColor(t);
+
+    const x1 = s._x + s._size.w + MARGIN;
+    const y1 = s._y + MARGIN;
+    const x2 = t._x + MARGIN;
+    const y2 = t._y + MARGIN;
+    const mx = (x1 + x2) / 2;
+
+    linkG.append('path')
+      .attr('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`)
+      .attr('fill', 'none')
+      .attr('stroke', hexToRgba(col, t.depth === 1 ? 0.38 : 0.20))
+      .attr('stroke-width', t.depth === 1 ? 1.7 : 1.2);
+  });
+
+  /* 7. 节点 */
+  const nodeG = svg.append('g');
+
+  root.descendants().forEach(node => {
+    const depth = node.depth;
+    const col = getNodeColor(node);
+
+    const gNode = nodeG.append('g')
+      .attr('transform',
+        `translate(${node._x + MARGIN},${node._y - node._size.h / 2 + MARGIN})`);
+
+    let fill, stroke, strokeW, rx;
+
+    if (depth === 0) {
+      fill = '#1e3a8a';
+      stroke = '#1e3a8a';
+      strokeW = 0;
+      rx = 12;
+    } else if (depth === 1) {
+      fill = '#ffffff';
+      stroke = hexToRgba(col, 0.42);
+      strokeW = 1.4;
+      rx = 10;
+    } else {
+      fill = '#fbfcfe';
+      stroke = hexToRgba(col, 0.22);
+      strokeW = 1.1;
+      rx = 8;
+    }
+
+    gNode.append('rect')
+      .attr('width', node._size.w)
+      .attr('height', node._size.h)
+      .attr('rx', rx)
+      .attr('fill', fill)
+      .attr('stroke', stroke)
+      .attr('stroke-width', strokeW);
+
+    /* 章节左侧色条 */
+    if (depth === 1) {
+      gNode.append('rect')
+        .attr('x', 0)
+        .attr('y', 8)
+        .attr('width', 4)
+        .attr('height', node._size.h - 16)
+        .attr('rx', 2)
+        .attr('fill', col);
+    }
+
+    /* 知识点左侧小圆点 */
+    if (depth === 2) {
+      gNode.append('circle')
+        .attr('cx', 10)
+        .attr('cy', node._size.h / 2)
+        .attr('r', 3)
+        .attr('fill', col);
+    }
+
+    let ty = PAD_Y;
+    node._lines.forEach(line => {
+      const isTitle = line.type === 'title';
+      const xPosLocal = (depth === 2 && isTitle) ? PAD_X + 6 : PAD_X;
+
+      gNode.append('text')
+        .attr('x', xPosLocal)
+        .attr('y', ty + line.lineH / 2)
+        .attr('dominant-baseline', 'central')
+        .attr('alignment-baseline', 'middle')
+        .attr('font-size', line.size)
+        .attr('font-weight', line.weight)
+        .attr('fill', line.color)
+        .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+        .text(line.text);
+
+      ty += line.lineH;
+    });
+  });
+}
+
+function renderBookMaps() {
+  const wrap = document.getElementById('bookMaps');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+
+  BOOKS.forEach(book => {
+    const chapters = CHAPTERS.filter(c => c.book === book.id);
+    const pointCount = chapters.reduce((s, c) => s + c.points.length, 0);
+
+    const card = document.createElement('div');
+    card.className = 'book-map-card';
+    card.innerHTML = `
+      <div class="book-map-head">
+        <span class="book-map-num">${book.num}</span>
+        <span class="book-map-title">${book.label}</span>
+        <span class="book-map-meta">${chapters.length} 章 · ${pointCount} 个知识点</span>
+      </div>
+      <div class="book-map-body"></div>
+    `;
+    wrap.appendChild(card);
+
+    renderBookMindMap(card.querySelector('.book-map-body'), book);
+  });
+}
+
+/* ==========================================================
+   八、滚动淡入
+   ========================================================== */
+function initScrollAnimation() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+/* ==========================================================
+   九、错误显示
+   ========================================================== */
+function showError(message) {
+  const targets = [
+    document.getElementById('sunburstWrap'),
+    document.getElementById('moduleGrid'),
+    document.getElementById('bookMaps')
+  ];
+  targets.forEach(el => {
+    if (!el) return;
+    el.innerHTML = `
+      <div class="error-state">
+        <div class="error-icon">⚠</div>
+        <div>${message}</div>
+        <div style="font-size:.72rem;color:#94a3b8">请检查网络连接后刷新页面重试</div>
+      </div>
+    `;
+  });
+}
+
+/* ==========================================================
+   十、初始化
+   ========================================================== */
+let _inited = false;
+
+function init() {
+  if (_inited) return;
+  _inited = true;
+
+  initScrollAnimation();
+
+  loadD3()
+    .then(() => {
+      renderSunburst();
+      renderModuleMaps();
+      renderBookMaps();
+    })
+    .catch(err => {
+      console.error('图表初始化失败：', err);
+      showError('D3.js 图表库加载失败');
+    });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+/* 窗口尺寸变化重绘 */
+let _resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => {
+    if (typeof d3 === 'undefined') return;
+    if (!_inited) return;
+    renderModuleMaps();
+    renderBookMaps();
+  }, 320);
+});
+</script>
+</body>
+</html>

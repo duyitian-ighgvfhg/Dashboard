@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人教版高中数学知识图谱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#f5f7fa;
+  --surface:#ffffff;
+  --border:#e3e8ef;
+  --border-strong:#cbd5e1;
+  --text-1:#1a2332;
+  --text-2:#475569;
+  --text-3:#94a3b8;
+  --shadow-sm:0 1px 3px rgba(15,23,42,.05);
+  --shadow-md:0 4px 16px rgba(15,23,42,.07);
+  --shadow-lg:0 16px 44px rgba(15,23,42,.10);
+  --sans:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Segoe UI',Roboto,sans-serif;
+  --mono:'SF Mono','JetBrains Mono',Consolas,monospace;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text-1);
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{max-width:1280px;margin:0 auto;padding:0 28px}
+
+/* ===== 导航 ===== */
+.top-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:1280px;margin:0 auto;padding:0 28px;
+  height:64px;display:flex;align-items:center;gap:30px;
+}
+.nav-brand{
+  font-size:.95rem;font-weight:800;color:var(--text-1);
+  display:flex;align-items:center;gap:10px;white-space:nowrap;
+}
+.nav-mark{
+  width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg,#1e3a8a,#7c3aed);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.85rem;font-weight:800;
+}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{
+  color:var(--text-2);text-decoration:none;font-size:.85rem;font-weight:500;
+  padding:7px 16px;border-radius:8px;transition:all .2s ease;white-space:nowrap;
+}
+.nav-links a:hover{color:#1e3a8a;background:rgba(30,58,138,.07)}
+
+/* ===== Hero ===== */
+.hero{padding:72px 0 48px;text-align:center}
+.hero-badge{
+  display:inline-block;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#7c3aed;font-weight:700;
+  border:1px solid rgba(124,58,237,.24);
+  background:rgba(124,58,237,.05);
+  padding:6px 18px;border-radius:100px;margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(1.9rem,4.4vw,3rem);font-weight:800;
+  line-height:1.28;letter-spacing:-.02em;color:var(--text-1);
+  margin-bottom:18px;
+}
+.hero h1 .accent{
+  background:linear-gradient(120deg,#1e3a8a,#7c3aed);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero p{
+  font-size:clamp(.88rem,1.4vw,1rem);color:var(--text-2);
+  max-width:720px;margin:0 auto;line-height:1.9;
+}
+.hero-rule{
+  width:64px;height:4px;border-radius:4px;margin:30px auto 0;
+  background:linear-gradient(90deg,#1e3a8a,#7c3aed);
+}
+.hero-stats{display:flex;justify-content:center;gap:56px;margin-top:42px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{
+  font-size:2rem;font-weight:800;font-family:var(--mono);
+  color:#1e3a8a;line-height:1.2;
+}
+.hero-stat-label{
+  font-size:.74rem;color:var(--text-3);
+  letter-spacing:.1em;margin-top:4px;font-weight:500;
+}
+
+/* ===== 章节标题 ===== */
+.section-header{margin-bottom:32px;padding-top:64px}
+.section-header .kicker{
+  font-size:.72rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:#7c3aed;margin-bottom:10px;
+}
+.section-header h2{
+  font-size:clamp(1.35rem,2.7vw,1.75rem);font-weight:800;
+  color:var(--text-1);letter-spacing:-.015em;margin-bottom:10px;line-height:1.35;
+}
+.section-header p{color:var(--text-2);font-size:.88rem;max-width:700px}
+
+/* ===== 太阳辐照图 ===== */
+.sunburst-section{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-sm);
+  padding:24px 16px 20px;
+}
+.sunburst-wrap{
+  width:100%;display:flex;justify-content:center;align-items:center;
+  min-height:600px;
+}
+.sunburst-legend{
+  display:flex;flex-wrap:wrap;gap:10px 24px;
+  justify-content:center;margin-top:14px;
+  padding-top:18px;border-top:1px solid var(--border);
+}
+.legend-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:.8rem;color:var(--text-2);font-weight:500;
+}
+.legend-swatch{
+  width:13px;height:13px;border-radius:4px;flex-shrink:0;
+  box-shadow:0 0 0 1px rgba(0,0,0,.06);
+}
+
+/* ===== 模块网格 ===== */
+.module-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+}
+.module-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  transition:box-shadow .3s ease,border-color .3s ease,transform .3s ease;
+}
+.module-card:hover{
+  box-shadow:var(--shadow-lg);
+  border-color:var(--border-strong);
+  transform:translateY(-3px);
+}
+.module-card-head{
+  display:flex;align-items:center;gap:14px;
+  padding:20px 24px 16px;
+  border-bottom:1px solid var(--border);
+}
+.module-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;flex-shrink:0;
+}
+.module-name{font-size:1.05rem;font-weight:800;color:var(--text-1);letter-spacing:-.015em}
+.module-count{font-size:.74rem;color:var(--text-3);font-family:var(--mono);margin-top:2px}
+.radial-wrap{
+  padding:6px 10px 14px;
+  display:flex;justify-content:center;align-items:center;
+  min-height:460px;
+}
+
+/* ===== 分册思维导图 ===== */
+.book-map-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  margin-bottom:26px;
+  transition:box-shadow .3s ease,border-color .3s ease;
+}
+.book-map-card:hover{
+  box-shadow:var(--shadow-md);
+  border-color:var(--border-strong);
+}
+.book-map-head{
+  display:flex;align-items:center;gap:16px;
+  padding:22px 30px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,#fbfcfe,#f7f9fc);
+}
+.book-map-num{
+  font-family:var(--mono);font-size:.72rem;font-weight:700;
+  color:#fff;background:#1e3a8a;
+  padding:5px 12px;border-radius:7px;letter-spacing:.06em;
+  flex-shrink:0;
+}
+.book-map-title{
+  font-size:1.12rem;font-weight:800;color:var(--text-1);
+  letter-spacing:-.015em;
+}
+.book-map-meta{
+  margin-left:auto;font-size:.76rem;color:var(--text-3);
+  font-family:var(--mono);white-space:nowrap;
+}
+.book-map-body{
+  overflow-x:auto;overflow-y:hidden;
+  padding:22px 18px 26px;
+}
+.book-map-body::-webkit-scrollbar{height:8px}
+.book-map-body::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}
+.book-map-body::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+.book-map-body::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+.book-map-body svg{display:block;margin:0 auto}
+
+/* ===== 加载与错误状态 ===== */
+.loading-state, .error-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:280px;color:var(--text-3);font-size:.85rem;gap:12px;
+}
+.spinner{
+  width:34px;height:34px;border-radius:50%;
+  border:3px solid var(--border);
+  border-top-color:#1e3a8a;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-state{color:#b91c1c}
+.error-icon{font-size:1.8rem}
+
+/* ===== 页脚 ===== */
+.footer{
+  text-align:center;padding:52px 0 60px;
+  color:var(--text-3);font-size:.78rem;
+  border-top:1px solid var(--border);margin-top:40px;
+  background:var(--surface);
+}
+
+/* ===== 淡入 ===== */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ===== Tooltip ===== */
+.gtip{
+  position:fixed;pointer-events:none;z-index:9999;
+  background:#0f172a;color:#fff;
+  padding:9px 15px;border-radius:9px;
+  font-size:.78rem;font-weight:500;
+  box-shadow:0 10px 28px rgba(0,0,0,.24);
+  opacity:0;transition:opacity .16s ease;
+  white-space:nowrap;font-family:var(--sans);
+}
+.gtip .gtip-sub{
+  display:block;color:#94a3b8;font-size:.68rem;margin-top:3px;font-weight:400;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width:1040px){
+  .module-grid{grid-template-columns:1fr}
+  .radial-wrap{min-height:420px}
+}
+@media (max-width:768px){
+  .container{padding:0 18px}
+  .nav-inner{padding:0 18px;gap:14px}
+  .nav-links a{font-size:.78rem;padding:6px 11px}
+  .hero{padding:50px 0 34px}
+  .hero-stats{gap:30px;margin-top:32px}
+  .hero-stat-num{font-size:1.55rem}
+  .book-map-head{padding:16px 18px;gap:11px}
+  .book-map-title{font-size:.98rem}
+  .book-map-meta{display:none}
+  .section-header{padding-top:48px}
+  .sunburst-wrap{min-height:420px}
+}
+@media (max-width:480px){
+  .nav-brand span.brand-text{display:none}
+  .hero-stats{gap:20px}
+  .hero-stat-num{font-size:1.3rem}
+  .hero-stat-label{font-size:.66rem}
+  .sunburst-wrap{min-height:340px}
+  .radial-wrap{min-height:360px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 导航 ===== -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <span class="nav-brand">
+      <span class="nav-mark">∑</span>
+      <span class="brand-text">高中数学知识图谱</span>
+    </span>
+    <div class="nav-links">
+      <a href="#overview">知识全景</a>
+      <a href="#modules">模块导图</a>
+      <a href="#chapters">分册思维导图</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero container">
+  <div class="hero-badge">人教A版 · 2019 · 五册全览</div>
+  <h1>高中数学<span class="accent">知识图谱</span></h1>
+  <p>以五彩太阳辐照图统览全局，以径向导向图拆解模块，以大型思维导图详述每一分册。系统梳理人教A版高中数学五册教材的知识脉络与逻辑关联。</p>
+  <div class="hero-rule"></div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">教材分册</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">21</div><div class="hero-stat-label">核心章节</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">知识主题</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">100+</div><div class="hero-stat-label">知识点</div></div>
+  </div>
+</header>
+
+<!-- ===== 一、太阳辐照全景图 ===== -->
+<section id="overview" class="container fade-in">
+  <div class="section-header">
+    <div class="kicker">OVERVIEW · 全景</div>
+    <h2>知识全景太阳辐照图</h2>
+    <p>内层为「高中数学」总根，第二层为四大知识主题，第三层为各章节。所有标签沿半径方向从内向外书写，方向统一。</p>
+  </div>
+  <div class="sunburst-section">
+    <div class="sunburst-wrap" id="sunburstWrap">
+      <div class="loading-state"><div class="spinner"></div><span>正在加载全景图…</span></div>
+    </div>
+    <div class="sunburst-legend" id="sunburstLegend"></div>
+  </div>
+</section>
+
+<!-- ===== 二、模块导向图 ===== -->
+<section id="modules" class="container fade-in">
+  <div class="section-header">
+    <div class="kicker">MODULES · 模块</div>
+    <h2>模块径向导向图</h2>
+    <p>每个模块以径向树居中展开，中心为模块名称，四周均匀分布其下辖章节。</p>
+  </div>
+  <div class="module-grid" id="moduleGrid">
+    <div class="module-card"><div class="radial-wrap"><div class="loading-state"><div class="spinner"></div><span>加载中…</span></div></div></div>
+    <div class="module-card"><div class="radial-wrap"><div class="loading-state"><div class="spinner"></div><span>加载中…</span></div></div></div>
+  </div>
+</section>
+
+<!-- ===== 三、分册思维导图 ===== -->
+<section id="chapters" class="container fade-in">
+  <div class="section-header">
+    <div class="kicker">BOOKS · 分册</div>
+    <h2>分册知识点思维导图</h2>
+    <p>每一分册整合为一张大型思维导图，以分册为根，章节为干，知识点为叶，完整呈现知识脉络。</p>
+  </div>
+  <div id="bookMaps">
+    <div class="book-map-card"><div class="book-map-body"><div class="loading-state"><div class="spinner"></div><span>正在加载思维导图…</span></div></div></div>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer container">
+  <p>人教版高中数学知识图谱 · 依据《普通高中数学课程标准（2017年版2020年修订）》· 2019版教材编制</p>
+</footer>
+
+<div class="gtip" id="gtip"></div>
+
+<script>
+/* ==========================================================
+   D3.js 多 CDN 回退加载器
+   ========================================================== */
+function loadD3() {
+  if (typeof d3 !== 'undefined') return Promise.resolve();
+
+  const cdns = [
+    'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js',
+    'https://unpkg.com/d3@7/dist/d3.min.js',
+    'https://d3js.org/d3.v7.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js'
+  ];
+
+  return new Promise((resolve, reject) => {
+    let idx = 0;
+    function tryNext() {
+      if (idx >= cdns.length) { reject(new Error('所有 CDN 均无法加载 D3.js')); return; }
+      const url = cdns[idx++];
+      const s = document.createElement('script');
+      s.src = url; s.async = false;
+      s.onload = () => { if (typeof d3 !== 'undefined') resolve(); else tryNext(); };
+      s.onerror = tryNext;
+      document.head.appendChild(s);
+    }
+    tryNext();
+  });
+}
+
+/* ==========================================================
+   一、工具函数
+   ========================================================== */
+const _cv = document.createElement('canvas');
+const _cx = _cv.getContext('2d');
+
+function measureText(text, size, weight) {
+  _cx.font = `${weight||400} ${size}px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif`;
+  return _cx.measureText(text || '').width;
+}
+
+function wrapText(text, maxChars) {
+  if (!text) return [''];
+  const lines = [];
+  let cur = '';
+  for (const ch of text) {
+    cur += ch;
+    if (cur.length >= maxChars) { lines.push(cur); cur = ''; }
+  }
+  if (cur) lines.push(cur);
+  return lines.length ? lines : [''];
+}
+
+function hexToRgba(hex, a) {
+  try {
+    const c = d3.color(hex);
+    if (!c) return `rgba(150,150,150,${a})`;
+    return `rgba(${c.r},${c.g},${c.b},${a})`;
+  } catch (e) { return `rgba(150,150,150,${a})`; }
+}
+
+function mixWhite(hex, t) {
+  try {
+    const c = d3.color(hex);
+    if (!c) return '#ffffff';
+    return d3.interpolateRgb(c, d3.color('#ffffff'))(t).formatHex();
+  } catch (e) { return '#ffffff'; }
+}
+
+/* ==========================================================
+   二、数据定义
+   ========================================================== */
+const MODULES = [
+  { id:'function',  name:'函数',          icon:'𝑓', color:'#1e3a8a' },
+  { id:'geometry',  name:'几何与代数',    icon:'△', color:'#0f766e' },
+  { id:'stats',     name:'概率与统计',    icon:'📊', color:'#b45309' },
+  { id:'modeling',  name:'建模与探究',    icon:'∫', color:'#be185d' }
+];
+
+const BOOKS = [
+  { id:'b1', label:'必修第一册', num:'B1' },
+  { id:'b2', label:'必修第二册', num:'B2' },
+  { id:'x1', label:'选择性必修第一册', num:'X1' },
+  { id:'x2', label:'选择性必修第二册', num:'X2' },
+  { id:'x3', label:'选择性必修第三册', num:'X3' }
+];
+
+const CHAPTERS = [
+  /* ---------- 必修第一册 ---------- */
+  { id:'b1-1', book:'b1', module:'function', name:'集合与常用逻辑用语', short:'集合与逻辑',
+    points:[
+      { t:'集合的概念',   d:'元素与集合的关系，集合元素的确定性、互异性、无序性' },
+      { t:'集合间的基本关系', d:'子集、真子集、集合相等、空集' },
+      { t:'集合的基本运算',   d:'交集、并集、全集与补集' },
+      { t:'充分条件与必要条件', d:'充分条件、必要条件、充要条件的判断' },
+      { t:'全称量词与存在量词', d:'全称量词命题与存在量词命题的否定' }
+    ]
+  },
+  { id:'b1-2', book:'b1', module:'function', name:'一元二次函数、方程和不等式', short:'不等式',
+    points:[
+      { t:'等式性质与不等式性质', d:'不等式的基本性质，作差比较法' },
+      { t:'基本不等式',     d:'√(ab) ≤ (a+b)/2，当且仅当 a=b 时取等' },
+      { t:'二次函数与一元二次方程、不等式', d:'三个二次的关系，一元二次不等式的解法' }
+    ]
+  },
+  { id:'b1-3', book:'b1', module:'function', name:'函数的概念与性质', short:'函数概念',
+    points:[
+      { t:'函数的概念及其表示', d:'函数三要素：定义域、对应关系、值域；区间表示' },
+      { t:'函数的基本性质',     d:'单调性、最大值与最小值、奇偶性' },
+      { t:'幂函数',             d:'y = x^α 的图象与性质' },
+      { t:'函数的应用',         d:'函数模型的建立与选择' }
+    ]
+  },
+  { id:'b1-4', book:'b1', module:'function', name:'指数函数与对数函数', short:'指数对数',
+    points:[
+      { t:'指数',           d:'根式与分数指数幂的运算，实数指数幂' },
+      { t:'指数函数',       d:'y = a^x 的图象与性质，底数对图象的影响' },
+      { t:'对数',           d:'对数的概念与运算性质，换底公式' },
+      { t:'对数函数',       d:'y = log_a x 的图象与性质，反函数关系' },
+      { t:'函数的应用（二）', d:'函数零点与方程的解，二分法' }
+    ]
+  },
+  { id:'b1-5', book:'b1', module:'function', name:'三角函数', short:'三角函数',
+    points:[
+      { t:'任意角和弧度制', d:'任意角的概念，角度与弧度的互化' },
+      { t:'三角函数的概念', d:'单位圆定义，三角函数在各象限的符号' },
+      { t:'诱导公式',       d:'利用单位圆推导诱导公式' },
+      { t:'三角函数的图象与性质', d:'正弦、余弦、正切函数的周期性与图象特征' },
+      { t:'三角恒等变换',   d:'两角和差公式，二倍角公式' },
+      { t:'三角函数的应用', d:'y = A sin(ωx+φ) 的图象与物理意义' }
+    ]
+  },
+
+  /* ---------- 必修第二册 ---------- */
+  { id:'b2-1', book:'b2', module:'geometry', name:'平面向量及其应用', short:'平面向量',
+    points:[
+      { t:'平面向量的概念', d:'向量、零向量、单位向量、共线向量' },
+      { t:'平面向量的运算', d:'加法、减法、数乘，向量的线性运算' },
+      { t:'平面向量基本定理及坐标表示', d:'基底与坐标表示，向量运算的坐标形式' },
+      { t:'平面向量的应用', d:'用向量方法解决平面几何与物理问题' },
+      { t:'解三角形',       d:'正弦定理、余弦定理及其应用' }
+    ]
+  },
+  { id:'b2-2', book:'b2', module:'geometry', name:'复数', short:'复数',
+    points:[
+      { t:'复数的概念',     d:'虚数单位 i，复数的代数形式与几何意义' },
+      { t:'复数的四则运算', d:'加减乘除运算，共轭复数' },
+      { t:'复数的三角表示', d:'模与辐角，三角形式的乘除运算' }
+    ]
+  },
+  { id:'b2-3', book:'b2', module:'geometry', name:'立体几何初步', short:'立体几何',
+    points:[
+      { t:'基本立体图形',   d:'棱柱、棱锥、棱台、圆柱、圆锥、圆台、球的结构特征' },
+      { t:'立体图形的直观图', d:'斜二测画法，空间几何体的三视图' },
+      { t:'简单几何体的表面积与体积', d:'柱体、锥体、台体、球的表面积与体积公式' },
+      { t:'空间点、直线、平面之间的位置关系', d:'基本事实与推论，异面直线' },
+      { t:'空间直线、平面的平行', d:'线线、线面、面面平行的判定与性质' },
+      { t:'空间直线、平面的垂直', d:'线线、线面、面面垂直的判定与性质' }
+    ]
+  },
+  { id:'b2-4', book:'b2', module:'stats', name:'统计', short:'统计',
+    points:[
+      { t:'随机抽样',       d:'简单随机抽样、分层随机抽样' },
+      { t:'用样本估计总体', d:'频率分布直方图、百分位数、平均数、方差' },
+      { t:'统计案例',       d:'变量间的相关关系，线性回归方程' }
+    ]
+  },
+  { id:'b2-5', book:'b2', module:'stats', name:'概率', short:'概率',
+    points:[
+      { t:'随机事件与概率', d:'样本空间、随机事件、古典概型' },
+      { t:'事件的相互独立性', d:'独立事件同时发生的概率' },
+      { t:'频率与概率',     d:'频率的稳定性，用频率估计概率' }
+    ]
+  },
+
+  /* ---------- 选择性必修第一册 ---------- */
+  { id:'x1-1', book:'x1', module:'geometry', name:'空间向量与立体几何', short:'空间向量',
+    points:[
+      { t:'空间向量及其运算', d:'空间向量的线性运算与数量积' },
+      { t:'空间向量基本定理', d:'空间向量基本定理与基底' },
+      { t:'空间向量及其运算的坐标表示', d:'空间直角坐标系，坐标运算' },
+      { t:'空间向量的应用',   d:'用空间向量证明平行与垂直，求距离与夹角' }
+    ]
+  },
+  { id:'x1-2', book:'x1', module:'geometry', name:'直线和圆的方程', short:'直线与圆',
+    points:[
+      { t:'直线的倾斜角与斜率', d:'倾斜角、斜率公式，两条直线平行与垂直的判定' },
+      { t:'直线的方程',       d:'点斜式、斜截式、两点式、截距式、一般式' },
+      { t:'直线的交点坐标与距离公式', d:'两点间距离、点到直线距离、平行线间距离' },
+      { t:'圆的方程',         d:'圆的标准方程与一般方程' },
+      { t:'直线与圆、圆与圆的位置关系', d:'位置关系的判定与弦长问题' }
+    ]
+  },
+  { id:'x1-3', book:'x1', module:'geometry', name:'圆锥曲线的方程', short:'圆锥曲线',
+    points:[
+      { t:'椭圆',           d:'定义、标准方程、几何性质（范围、对称性、顶点、离心率）' },
+      { t:'双曲线',         d:'定义、标准方程、几何性质（渐近线、离心率）' },
+      { t:'抛物线',         d:'定义、标准方程、几何性质（焦点、准线）' },
+      { t:'直线与圆锥曲线的位置关系', d:'弦长公式、中点弦问题' }
+    ]
+  },
+
+  /* ---------- 选择性必修第二册 ---------- */
+  { id:'x2-1', book:'x2', module:'function', name:'数列', short:'数列',
+    points:[
+      { t:'数列的概念',     d:'数列的定义、通项公式、递推公式' },
+      { t:'等差数列',       d:'定义、通项公式、前 n 项和公式' },
+      { t:'等比数列',       d:'定义、通项公式、前 n 项和公式' },
+      { t:'数列求和的方法', d:'公式法、错位相减法、裂项相消法' }
+    ]
+  },
+  { id:'x2-2', book:'x2', module:'modeling', name:'一元函数的导数及其应用', short:'导数',
+    points:[
+      { t:'导数的概念及其意义', d:'平均变化率、瞬时变化率、导数的几何意义（切线）' },
+      { t:'导数的运算',       d:'基本初等函数的导数公式，四则运算法则，复合函数求导' },
+      { t:'导数在研究函数中的应用', d:'利用导数判断单调性、求极值与最值' },
+      { t:'导数的综合应用',   d:'导数与不等式、方程根的问题' }
+    ]
+  },
+
+  /* ---------- 选择性必修第三册 ---------- */
+  { id:'x3-1', book:'x3', module:'stats', name:'计数原理', short:'计数原理',
+    points:[
+      { t:'分类加法计数原理与分步乘法计数原理', d:'两个基本原理的区别与联系' },
+      { t:'排列与组合',     d:'排列数、组合数公式，排列组合的应用' },
+      { t:'二项式定理',     d:'二项展开式的通项公式，二项式系数的性质' }
+    ]
+  },
+  { id:'x3-2', book:'x3', module:'stats', name:'随机变量及其分布', short:'随机变量',
+    points:[
+      { t:'条件概率与全概率公式', d:'条件概率的定义与计算，全概率公式' },
+      { t:'离散型随机变量及其分布列', d:'分布列的性质，两点分布' },
+      { t:'离散型随机变量的数字特征', d:'均值（期望）与方差' },
+      { t:'二项分布与超几何分布', d:'两种常见分布模型' },
+      { t:'正态分布',       d:'正态密度曲线的特征，正态分布的应用' }
+    ]
+  },
+  { id:'x3-3', book:'x3', module:'stats', name:'成对数据的统计分析', short:'统计分析',
+    points:[
+      { t:'成对数据的统计相关性', d:'散点图、相关系数' },
+      { t:'一元线性回归模型及其应用', d:'最小二乘法求回归方程' },
+      { t:'列联表与独立性检验', d:'卡方检验的基本思想' }
+    ]
+  }
+];
+
+/* ==========================================================
+   三、有效模块过滤
+   ========================================================== */
+const VALID_MODULES = MODULES.filter(m =>
+  CHAPTERS.some(c => c.module === m.id)
+);
+
+/* ==========================================================
+   四、章节彩虹色分配
+   ========================================================== */
+const CHAPTER_HUES = {};
+CHAPTERS.forEach((c, i) => {
+  CHAPTER_HUES[c.id] = (i * 137.508 + 12) % 360;
+});
+
+function chapterColor(id) {
+  const hue = CHAPTER_HUES[id];
+  if (hue === undefined) return '#64748b';
+  try {
+    return d3.hsl(hue, 0.62, 0.55).formatHex();
+  } catch (e) { return '#64748b'; }
+}
+
+/* ==========================================================
+   五、Tooltip
+   ========================================================== */
+const gtip = document.getElementById('gtip');
+let _tipVisible = false;
+
+function showTip(html, x, y) {
+  if (!gtip) return;
+  gtip.innerHTML = html;
+  gtip.style.opacity = '1';
+  gtip.style.left = (x + 14) + 'px';
+  gtip.style.top = (y - 14) + 'px';
+  _tipVisible = true;
+}
+function moveTip(x, y) {
+  if (!gtip || !_tipVisible) return;
+  gtip.style.left = (x + 14) + 'px';
+  gtip.style.top = (y - 14) + 'px';
+}
+function hideTip() {
+  if (!gtip) return;
+  gtip.style.opacity = '0';
+  _tipVisible = false;
+}
+
+/* ==========================================================
+   六、太阳辐照全景图
+   ----------------------------------------------------------
+   标签方向逻辑（统一规则，不区分左右）：
+   所有标签均沿半径方向，从圆心向外书写。
+   变换公式：rotate(midAngleDeg - 90) translate(rMid, 0)
+   - 顶部扇区：文字从下往上（内→外）
+   - 右侧扇区：文字从左往右（内→外）
+   - 底部扇区：文字从上往下（内→外）
+   - 左侧扇区：文字从右往左（内→外）
+   ========================================================== */
+function renderSunburst() {
+  const wrap = document.getElementById('sunburstWrap');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+
+  const SIZE = 900;
+  const R = 420;
+  const CX = SIZE / 2;
+  const CY = SIZE / 2;
+
+  const svg = d3.select(wrap).append('svg')
+    .attr('viewBox', `0 0 ${SIZE} ${SIZE}`)
+    .attr('width', '100%')
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('max-width', SIZE + 'px')
+    .style('display', 'block');
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${CX},${CY})`);
+
+  const treeData = {
+    name: '高中数学',
+    children: VALID_MODULES.map(m => ({
+      name: m.name,
+      moduleId: m.id,
+      color: m.color,
+      children: CHAPTERS
+        .filter(c => c.module === m.id)
+        .map(c => ({
+          id: c.id,
+          name: c.short,
+          fullName: c.name,
+          moduleId: m.id
+        }))
+    }))
+  };
+
+  const root = d3.hierarchy(treeData)
+    .sum(d => d.children ? 0 : 1);
+
+  d3.partition().size([2 * Math.PI, 1])(root);
+
+  const rScale = d3.scaleLinear().domain([0, 1]).range([0, R]);
+
+  const arc = d3.arc()
+    .startAngle(d => d.x0)
+    .endAngle(d => d.x1)
+    .padAngle(d => {
+      if (d.depth === 1) return 0.012;
+      return Math.min((d.x1 - d.x0) / 2, 0.003);
+    })
+    .padRadius(R / 4)
+    .innerRadius(d => rScale(d.y0))
+    .outerRadius(d => rScale(d.y1));
+
+  function nodeColor(d) {
+    if (d.depth === 0) return '#0f172a';
+    if (d.depth === 1) {
+      const m = VALID_MODULES.find(x => x.id === d.data.moduleId);
+      return m ? m.color : '#1e3a8a';
+    }
+    return chapterColor(d.data.id);
+  }
+
+  function strokeWidth(d) {
+    if (d.depth === 1) return 3;
+    return 1.2;
+  }
+
+  const paths = g.selectAll('path.arc')
+    .data(root.descendants().filter(d => d.depth > 0))
+    .join('path')
+    .attr('class', 'arc')
+    .attr('d', arc)
+    .attr('fill', nodeColor)
+    .attr('stroke', '#ffffff')
+    .attr('stroke-width', strokeWidth)
+    .style('cursor', 'pointer')
+    .style('transition', 'opacity .25s ease, filter .25s ease');
+
+  /* 中心圆 */
+  g.append('circle')
+    .attr('r', rScale(1 / 3))
+    .attr('fill', '#0f172a');
+
+  g.append('circle')
+    .attr('r', rScale(1 / 3) + 3)
+    .attr('fill', 'none')
+    .attr('stroke', 'rgba(255,255,255,0.12)')
+    .attr('stroke-width', 1);
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '-0.08em')
+    .attr('fill', '#ffffff')
+    .attr('font-size', 30)
+    .attr('font-weight', 800)
+    .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+    .attr('letter-spacing', '0.08em')
+    .text('高中数学');
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '1.65em')
+    .attr('fill', 'rgba(255,255,255,0.5)')
+    .attr('font-size', 12)
+    .attr('font-family', "'SF Mono',Consolas,monospace")
+    .attr('letter-spacing', '0.22em')
+    .text('MATHEMATICS');
+
+  /* =========================================================
+     文字标签渲染 —— 统一径向逻辑
+     ========================================================= */
+  const labelG = g.append('g');
+
+  root.descendants().filter(d => d.depth > 0).forEach(d => {
+    const midAngle = (d.x0 + d.x1) / 2;
+    const rMid = rScale((d.y0 + d.y1) / 2);
+    const arcLen = (d.x1 - d.x0) * rMid;
+    const isModule = d.depth === 1;
+    const name = d.data.name;
+
+    /* 统一变换：rotate(角度 - 90) translate(rMid, 0)
+       所有标签从圆心向外书写，方向一致，不做左右判断 */
+    const angleDeg = midAngle * 180 / Math.PI;
+    const rotateDeg = angleDeg - 90;
+
+    let fontSize;
+    if (isModule) {
+      fontSize = Math.min(17, Math.max(13, arcLen / (name.length * 1.05)));
+    } else {
+      fontSize = Math.min(11, arcLen / (name.length * 1.05));
+      if (fontSize < 7.5) return;
+    }
+
+    const minArc = isModule ? 40 : fontSize * name.length * 0.95 + 8;
+    if (arcLen < minArc && !isModule) return;
+
+    labelG.append('text')
+      .attr('transform',
+        `rotate(${rotateDeg}) translate(${rMid},0)`)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'central')
+      .attr('alignment-baseline', 'middle')
+      .attr('fill', '#ffffff')
+      .attr('font-size', fontSize)
+      .attr('font-weight', isModule ? 900 : 600)
+      .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+      .attr('letter-spacing', isModule ? '0.10em' : '0.02em')
+      .style('pointer-events', 'none')
+      .style('paint-order', 'stroke')
+      .style('stroke', isModule ? 'rgba(0,0,0,0.42)' : 'rgba(0,0,0,0.22)')
+      .style('stroke-width', isModule ? '3px' : '2px')
+      .style('stroke-linecap', 'round')
+      .style('stroke-linejoin', 'round')
+      .text(name);
+  });
+
+  /* 悬停高亮 */
+  paths
+    .on('mouseover', function (event, d) {
+      const anc = new Set(d.ancestors());
+      paths.attr('opacity', p => {
+        if (anc.has(p)) return 1;
+        if (p.ancestors().some(a => anc.has(a))) return 1;
+        return 0.24;
+      });
+      d3.select(this).attr('filter', 'brightness(1.1)');
+
+      const mod = VALID_MODULES.find(m => m.id === d.data.moduleId);
+      if (d.depth === 1) {
+        showTip(`<strong>${d.data.name}</strong><span class="gtip-sub">${d.children.length} 个章节 · 知识主题</span>`, event.clientX, event.clientY);
+      } else {
+        showTip(`<strong>${d.data.fullName}</strong><span class="gtip-sub">${mod ? mod.name : ''}</span>`, event.clientX, event.clientY);
+      }
+    })
+    .on('mousemove', e => moveTip(e.clientX, e.clientY))
+    .on('mouseout', function () {
+      paths.attr('opacity', 1).attr('filter', null);
+      hideTip();
+    });
+
+  /* 图例 */
+  const legendEl = document.getElementById('sunburstLegend');
+  if (legendEl) {
+    legendEl.innerHTML = VALID_MODULES.map(m => {
+      const cnt = CHAPTERS.filter(c => c.module === m.id).length;
+      return `<div class="legend-item">
+        <span class="legend-swatch" style="background:${m.color}"></span>
+        <span>${m.name}</span>
+        <span style="color:#94a3b8;font-family:'SF Mono',monospace;font-size:.72rem">${cnt}章</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ==========================================================
+   七、模块径向导向图
+   ========================================================== */
+function renderRadialTree(container, mod) {
+  if (!container) return;
+  container.innerHTML = '';
+
+  const W = 480, H = 480;
+  const CX = W / 2, CY = H / 2;
+  const R_CENTER = 56;
+  const R_NODE = 178;
+
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('width', '100%')
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('max-width', W + 'px')
+    .style('display', 'block')
+    .style('margin', '0 auto');
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${CX},${CY})`);
+
+  const chapters = CHAPTERS.filter(c => c.module === mod.id);
+  const n = chapters.length;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2;
+
+  chapters.forEach((ch, i) => {
+    const angle = startAngle + i * angleStep;
+    const x1 = Math.cos(angle) * R_CENTER;
+    const y1 = Math.sin(angle) * R_CENTER;
+    const x2 = Math.cos(angle) * (R_NODE - 14);
+    const y2 = Math.sin(angle) * (R_NODE - 14);
+
+    g.append('line')
+      .attr('x1', x1).attr('y1', y1)
+      .attr('x2', x2).attr('y2', y2)
+      .attr('stroke', hexToRgba(mod.color, 0.28))
+      .attr('stroke-width', 1.5);
+  });
+
+  chapters.forEach((ch, i) => {
+    const angle = startAngle + i * angleStep;
+    const x = Math.cos(angle) * R_NODE;
+    const y = Math.sin(angle) * R_NODE;
+
+    g.append('circle')
+      .attr('cx', x).attr('cy', y)
+      .attr('r', 6)
+      .attr('fill', '#ffffff')
+      .attr('stroke', mod.color)
+      .attr('stroke-width', 2.5);
+  });
+
+  chapters.forEach((ch, i) => {
+    const angle = startAngle + i * angleStep;
+    const x = Math.cos(angle) * R_NODE;
+    const y = Math.sin(angle) * R_NODE;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    let anchor = 'middle';
+    let dx = 0, dy = 0;
+
+    if (cos > 0.18) {
+      anchor = 'start'; dx = 13;
+    } else if (cos < -0.18) {
+      anchor = 'end'; dx = -13;
+    } else {
+      anchor = 'middle';
+      dy = sin > 0 ? 24 : -15;
+    }
+
+    g.append('text')
+      .attr('x', x + dx)
+      .attr('y', y + dy)
+      .attr('text-anchor', anchor)
+      .attr('dy', (Math.abs(cos) > 0.18) ? '0.35em' : '0')
+      .attr('fill', '#1a2332')
+      .attr('font-size', 12.5)
+      .attr('font-weight', 700)
+      .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+      .style('cursor', 'default')
+      .text(ch.short)
+      .on('mouseover', function (event) {
+        showTip(`<strong>${ch.name}</strong><span class="gtip-sub">${mod.name}</span>`, event.clientX, event.clientY);
+      })
+      .on('mousemove', e => moveTip(e.clientX, e.clientY))
+      .on('mouseout', hideTip);
+  });
+
+  g.append('circle')
+    .attr('r', R_CENTER)
+    .attr('fill', mod.color);
+
+  g.append('circle')
+    .attr('r', R_CENTER + 4)
+    .attr('fill', 'none')
+    .attr('stroke', mixWhite(mod.color, 0.82))
+    .attr('stroke-width', 5);
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '-0.05em')
+    .attr('fill', '#ffffff')
+    .attr('font-size', 18)
+    .attr('font-weight', 800)
+    .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+    .attr('letter-spacing', '0.06em')
+    .text(mod.name);
+
+  g.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '1.55em')
+    .attr('fill', 'rgba(255,255,255,0.7)')
+    .attr('font-size', 10)
+    .attr('font-family', "'SF Mono',Consolas,monospace")
+    .attr('letter-spacing', '0.1em')
+    .text(`${chapters.length} 章`);
+}
+
+function renderModuleMaps() {
+  const grid = document.getElementById('moduleGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  VALID_MODULES.forEach(mod => {
+    const chapters = CHAPTERS.filter(c => c.module === mod.id);
+
+    const card = document.createElement('div');
+    card.className = 'module-card';
+    card.innerHTML = `
+      <div class="module-card-head">
+        <div class="module-icon"
+             style="background:${hexToRgba(mod.color, 0.10)};color:${mod.color}">
+          ${mod.icon}
+        </div>
+        <div>
+          <div class="module-name">${mod.name}</div>
+          <div class="module-count">${chapters.length} 个章节</div>
+        </div>
+      </div>
+      <div class="radial-wrap"></div>
+    `;
+    grid.appendChild(card);
+
+    renderRadialTree(card.querySelector('.radial-wrap'), mod);
+  });
+}
+
+/* ==========================================================
+   八、分册大型思维导图
+   ========================================================== */
+function renderBookMindMap(container, book) {
+  if (!container) return;
+  container.innerHTML = '';
+
+  const chapters = CHAPTERS.filter(c => c.book === book.id);
+
+  const data = {
+    name: book.label,
+    isRoot: true,
+    children: chapters.map(ch => ({
+      name: ch.name,
+      moduleId: ch.module,
+      chapterId: ch.id,
+      children: ch.points.map(p => ({
+        name: p.t,
+        desc: p.d,
+        moduleId: ch.module
+      }))
+    }))
+  };
+
+  const root = d3.hierarchy(data);
+
+  const H_GAP = 58;
+  const V_GAP = 8;
+  const PAD_X = 16;
+  const PAD_Y = 9;
+  const LINE_H_TITLE = 17;
+  const LINE_H_DESC = 14;
+  const MARGIN = 14;
+
+  root.each(node => {
+    const depth = node.depth;
+    let titleSize, titleMax, descSize, descMax, titleColor;
+
+    if (depth === 0) {
+      titleSize = 16; titleMax = 10;
+      descSize = 0;   descMax = 0;
+      titleColor = '#ffffff';
+    } else if (depth === 1) {
+      titleSize = 13; titleMax = 12;
+      descSize = 0;   descMax = 0;
+      titleColor = '#1a2332';
+    } else {
+      titleSize = 11.5; titleMax = 12;
+      descSize = 10;   descMax = 30;
+      titleColor = '#1a2332';
+    }
+
+    const titleLines = wrapText(node.data.name, titleMax);
+    const descLines = (descSize > 0 && node.data.desc)
+      ? wrapText(node.data.desc, descMax)
+      : [];
+
+    const lines = [];
+    titleLines.forEach(t => lines.push({
+      text: t, size: titleSize, weight: 800, color: titleColor,
+      lineH: LINE_H_TITLE, type: 'title'
+    }));
+    descLines.forEach(t => lines.push({
+      text: t, size: descSize, weight: 400, color: '#64748b',
+      lineH: LINE_H_DESC, type: 'desc'
+    }));
+
+    let maxW = 0;
+    lines.forEach(l => {
+      const w = measureText(l.text, l.size, l.weight);
+      if (w > maxW) maxW = w;
+    });
+
+    node._lines = lines;
+    node._size = {
+      w: Math.max(maxW + PAD_X * 2, depth === 0 ? 140 : 92),
+      h: lines.reduce((s, l) => s + l.lineH, 0) + PAD_Y * 2
+    };
+  });
+
+  const depthW = [];
+  root.each(n => {
+    depthW[n.depth] = Math.max(depthW[n.depth] || 0, n._size.w);
+  });
+  const xPos = [0];
+  for (let d = 1; d < depthW.length; d++) {
+    xPos[d] = xPos[d - 1] + depthW[d - 1] + H_GAP;
+  }
+
+  (function calcSub(node) {
+    if (!node.children || !node.children.length) {
+      node._subH = node._size.h;
+    } else {
+      node.children.forEach(calcSub);
+      let total = 0;
+      node.children.forEach((c, i) => {
+        total += c._subH + (i > 0 ? V_GAP : 0);
+      });
+      node._subH = Math.max(node._size.h, total);
+    }
+  })(root);
+
+  (function place(node, top) {
+    node._x = xPos[node.depth];
+    if (!node.children || !node.children.length) {
+      node._y = top + node._subH / 2;
+    } else {
+      let childrenH = 0;
+      node.children.forEach((c, i) => {
+        childrenH += c._subH + (i > 0 ? V_GAP : 0);
+      });
+      let cur = top + (node._subH - childrenH) / 2;
+      node.children.forEach(c => {
+        place(c, cur);
+        cur += c._subH + V_GAP;
+      });
+      const first = node.children[0];
+      const last = node.children[node.children.length - 1];
+      node._y = (first._y + last._y) / 2;
+    }
+  })(root, 0);
+
+  const maxDepth = root.height;
+  const contentW = xPos[maxDepth] + depthW[maxDepth];
+  const contentH = root._subH;
+  const svgW = contentW + MARGIN * 2;
+  const svgH = contentH + MARGIN * 2;
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', svgW)
+    .attr('height', svgH)
+    .attr('viewBox', `0 0 ${svgW} ${svgH}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('max-width', '100%')
+    .style('height', 'auto');
+
+  function getNodeColor(node) {
+    if (node.depth === 0) return '#1e3a8a';
+    const m = VALID_MODULES.find(x => x.id === node.data.moduleId);
+    return m ? m.color : '#64748b';
+  }
+
+  const linkG = svg.append('g');
+  root.links().forEach(link => {
+    const s = link.source, t = link.target;
+    const col = getNodeColor(t);
+
+    const x1 = s._x + s._size.w + MARGIN;
+    const y1 = s._y + MARGIN;
+    const x2 = t._x + MARGIN;
+    const y2 = t._y + MARGIN;
+    const mx = (x1 + x2) / 2;
+
+    linkG.append('path')
+      .attr('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`)
+      .attr('fill', 'none')
+      .attr('stroke', hexToRgba(col, t.depth === 1 ? 0.38 : 0.20))
+      .attr('stroke-width', t.depth === 1 ? 1.7 : 1.2);
+  });
+
+  const nodeG = svg.append('g');
+
+  root.descendants().forEach(node => {
+    const depth = node.depth;
+    const col = getNodeColor(node);
+
+    const gNode = nodeG.append('g')
+      .attr('transform',
+        `translate(${node._x + MARGIN},${node._y - node._size.h / 2 + MARGIN})`);
+
+    let fill, stroke, strokeW, rx;
+
+    if (depth === 0) {
+      fill = '#1e3a8a';
+      stroke = '#1e3a8a';
+      strokeW = 0;
+      rx = 12;
+    } else if (depth === 1) {
+      fill = '#ffffff';
+      stroke = hexToRgba(col, 0.42);
+      strokeW = 1.4;
+      rx = 10;
+    } else {
+      fill = '#fbfcfe';
+      stroke = hexToRgba(col, 0.22);
+      strokeW = 1.1;
+      rx = 8;
+    }
+
+    gNode.append('rect')
+      .attr('width', node._size.w)
+      .attr('height', node._size.h)
+      .attr('rx', rx)
+      .attr('fill', fill)
+      .attr('stroke', stroke)
+      .attr('stroke-width', strokeW);
+
+    if (depth === 1) {
+      gNode.append('rect')
+        .attr('x', 0)
+        .attr('y', 8)
+        .attr('width', 4)
+        .attr('height', node._size.h - 16)
+        .attr('rx', 2)
+        .attr('fill', col);
+    }
+
+    if (depth === 2) {
+      gNode.append('circle')
+        .attr('cx', 10)
+        .attr('cy', node._size.h / 2)
+        .attr('r', 3)
+        .attr('fill', col);
+    }
+
+    let ty = PAD_Y;
+    node._lines.forEach(line => {
+      const isTitle = line.type === 'title';
+      const xPosLocal = (depth === 2 && isTitle) ? PAD_X + 6 : PAD_X;
+
+      gNode.append('text')
+        .attr('x', xPosLocal)
+        .attr('y', ty + line.lineH / 2)
+        .attr('dominant-baseline', 'central')
+        .attr('alignment-baseline', 'middle')
+        .attr('font-size', line.size)
+        .attr('font-weight', line.weight)
+        .attr('fill', line.color)
+        .attr('font-family', "'PingFang SC','Microsoft YaHei',sans-serif")
+        .text(line.text);
+
+      ty += line.lineH;
+    });
+  });
+}
+
+function renderBookMaps() {
+  const wrap = document.getElementById('bookMaps');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+
+  BOOKS.forEach(book => {
+    const chapters = CHAPTERS.filter(c => c.book === book.id);
+    const pointCount = chapters.reduce((s, c) => s + c.points.length, 0);
+
+    const card = document.createElement('div');
+    card.className = 'book-map-card';
+    card.innerHTML = `
+      <div class="book-map-head">
+        <span class="book-map-num">${book.num}</span>
+        <span class="book-map-title">${book.label}</span>
+        <span class="book-map-meta">${chapters.length} 章 · ${pointCount} 个知识点</span>
+      </div>
+      <div class="book-map-body"></div>
+    `;
+    wrap.appendChild(card);
+
+    renderBookMindMap(card.querySelector('.book-map-body'), book);
+  });
+}
+
+/* ==========================================================
+   九、滚动淡入
+   ========================================================== */
+function initScrollAnimation() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+/* ==========================================================
+   十、错误显示
+   ========================================================== */
+function showError(message) {
+  const targets = [
+    document.getElementById('sunburstWrap'),
+    document.getElementById('moduleGrid'),
+    document.getElementById('bookMaps')
+  ];
+  targets.forEach(el => {
+    if (!el) return;
+    el.innerHTML = `
+      <div class="error-state">
+        <div class="error-icon">⚠</div>
+        <div>${message}</div>
+        <div style="font-size:.72rem;color:#94a3b8">请检查网络连接后刷新页面重试</div>
+      </div>
+    `;
+  });
+}
+
+/* ==========================================================
+   十一、初始化
+   ========================================================== */
+let _inited = false;
+
+function init() {
+  if (_inited) return;
+  _inited = true;
+
+  initScrollAnimation();
+
+  loadD3()
+    .then(() => {
+      renderSunburst();
+      renderModuleMaps();
+      renderBookMaps();
+    })
+    .catch(err => {
+      console.error('图表初始化失败：', err);
+      showError('D3.js 图表库加载失败');
+    });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+let _resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => {
+    if (typeof d3 === 'undefined') return;
+    if (!_inited) return;
+    renderModuleMaps();
+    renderBookMaps();
+  }, 320);
+});
+</script>
+</body>
+</html>
